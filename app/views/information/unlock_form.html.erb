@@ -1,0 +1,16 @@
+<% if @error_message.present? %>
+  <div class="error"><%= @error_message %></div>
+<% end %>
+
+
+<h1 class="mr-10 text-2xl">Enter Key to Unlock</h1>
+<div class=" mt-20 border-2 p-10 bg-black/20 border-black rounded-2xl">
+
+<%= form_with url: unlock_information_path(@information), method: :post do %>
+  <%= label_tag :key, "Access Key" %>
+ <div class="mb-10 border border-black"> <%= text_field_tag :key %> </div>
+  <%= submit_tag "Unlock", class:"bg-black text-white font-bold border rounded-full py-3 px-5"  %>
+<% end %>
+</div>
+
+<%= link_to "Back", information_index_path , class:"bg-blue-700 text-white h-10 font-bold py-2 rounded-full inline-block px-10 aligntext-center"%>

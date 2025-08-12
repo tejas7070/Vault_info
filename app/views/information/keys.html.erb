@@ -1,0 +1,22 @@
+
+<h1 class="text-2xl font-bold mb-10 mr-19 text-gray-800">All Keys</h1>
+
+
+<div class="overflow-x-auto">
+  <table class="min-w-full border border-gray-300 rounded-lg shadow-sm">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border-b">Title</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border-b">Key</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @keys.each do |title, key| %>
+        <tr class="hover:bg-gray-50">
+          <td class="px-6 py-4 text-sm text-gray-800 border-b"><%= title %></td>
+          <td class="px-6 py-4 text-sm text-gray-800 border-b"><%= key %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

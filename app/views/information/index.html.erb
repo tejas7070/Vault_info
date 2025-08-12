@@ -1,0 +1,39 @@
+<% content_for :title, "Information" %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+  <%= button_to "Sign out" , destroy_user_session_path, method: :delete , class:"bg-red-600 px-5 py-2 border rounded-2xl text-white font-bold "%>
+      <%= link_to "View All Keys", keys_information_index_path, method: :get  %>
+
+    <h1 class="font-bold text-4xl">Information</h1>
+    <%= link_to "New information", new_information_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+  </div>
+   <div class=" mt-5 mb-5 space-x-10 w-100 alignitems-center ">
+    <%= form_with url: '/', method: :get, local: true, class: "flex items-center" do |form| %>
+      <%= form.text_field :query, 
+                         value: params[:query],
+                         placeholder: "Search by title or user ID...", 
+                         class: "border rounded-full p-2 w-full mr-2" %>
+      <%= form.submit "Search", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md" %>
+    <% end %>
+  </div>
+
+  <div id="information" class="min-w-full divide-y divide-gray-200 space-y-5">
+    <% if @information.any? %>
+      <% @information.each do |information| %>
+        <div class="flex flex-col sm:flex-row justify-between items-center px-4  pt-4 pb-4  mt-10 border border-gray-400 rounded-2xl">
+          <%= information.title %>
+          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
+    <%= link_to "Unlock", unlock_information_path(information), 
+    class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center my-10">No information found.</p>
+    <% end %>
+  </div>
+</div>
