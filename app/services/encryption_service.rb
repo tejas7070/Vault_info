@@ -1,25 +1,38 @@
-require "openssl"
-require "base64"
+require 'openssl'
+require 'base64'
 
 class EncryptionService
-  def self.encrypt(data, key)
-    key ||= SecureRandom.hex(16) # fallback if nil
-    cipher = OpenSSL::Cipher.new("AES-256-CBC")
+  ALGO = 'aes-256-gcm'
+
+  def self.encrypt(plaintext, key)
+    cipher = OpenSSL::Cipher.new(ALGO)
     cipher.encrypt
-    cipher.key = Digest::SHA256.digest(key)
+    cipher.key = [key].pack("H*")
     iv = cipher.random_iv
-    encrypted = cipher.update(data) + cipher.final
-    Base64.strict_encode64(iv + encrypted)
+    cipher.auth_data = ""
+
+    encrypted = cipher.update(plaintext) + cipher.final
+    tag = cipher.auth_tag
+
+    Base64.urlsafe_encode64(iv + tag + encrypted)
   end
 
   def self.decrypt(encrypted_data, key)
-    raw_data = Base64.strict_decode64(encrypted_data)
-    cipher = OpenSSL::Cipher.new("AES-256-CBC")
+    raw = Base64.urlsafe_decode64(encrypted_data)
+    iv = raw[0..11]
+    tag = raw[12..27]
+    ciphertext = raw[28..-1]
+
+    cipher = OpenSSL::Cipher.new(ALGO)
     cipher.decrypt
-    cipher.key = Digest::SHA256.digest(key)
-    cipher.iv = raw_data[0..15]
-    cipher.update(raw_data[16..]) + cipher.final
+    cipher.key = [key].pack("H*")
+    cipher.iv = iv
+    cipher.auth_tag = tag
+    cipher.auth_data = ""
+
+    cipher.update(ciphertext) + cipher.final
   rescue
     nil
   end
 end
+

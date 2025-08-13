@@ -6,7 +6,7 @@
   <% end %>
 
   <h1 class="font-bold text-4xl">Showing information</h1>
-
+   <p class="whitespace-pre-wrap"><%= @decrypted_main %></p>
   <%= render @information %>
 
   <%= link_to "Edit this information", edit_information_path(@information), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>

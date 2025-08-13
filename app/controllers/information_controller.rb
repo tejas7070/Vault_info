@@ -12,8 +12,8 @@ class InformationController < ApplicationController
 
   # GET /information/1 or /information/1.json
   def show
-  end
 
+  end
 
   def keys
       @keys = Information.pluck(:title, :key)

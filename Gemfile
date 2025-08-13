@@ -18,7 +18,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-
+gem 'eventmachine', github: 'eventmachine/eventmachine'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 gem "devise"
@@ -53,11 +53,19 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
 end
+    gem 'actionview-encoded_mail_to'
+    gem 'sidekiq'
+    gem 'redis'
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  gem 'letter_opener'
+  # optional: to view emails in browser interface
+  gem 'letter_opener_web'
 end
 
 group :test do
