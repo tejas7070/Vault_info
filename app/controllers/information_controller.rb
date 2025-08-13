@@ -12,14 +12,11 @@ class InformationController < ApplicationController
 
   # GET /information/1 or /information/1.json
   def show
-
   end
-  
+
 
   def keys
-
       @keys = Information.pluck(:title, :key)
-
   end
   # GET /information/new
   def new
@@ -32,10 +29,10 @@ class InformationController < ApplicationController
 
   def unlock
     @information = Information.find(params[:id])
-    if params[:key] == @information.key 
+    if params[:key] == @information.key
       redirect_to @information, notice: "Unlocked successfully!"
     else
-      redirect_to '/', notice: "Try something different next time"
+      redirect_to "/", notice: "Try something different next time"
       # render :unlock_form
     end
   end

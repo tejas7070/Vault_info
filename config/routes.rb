@@ -4,15 +4,14 @@ Rails.application.routes.draw do
       get :keys
     end
     member do
-      
-      get 'unlock', to: 'information#unlock_form'
-      post 'unlock', to: 'information#unlock'
+      get "unlock", to: "information#unlock_form"
+      post "unlock", to: "information#unlock"
     end
   end
-  
- 
+
+
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: "users/sessions"
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

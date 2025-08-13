@@ -1,10 +1,10 @@
-require 'openssl'
-require 'base64'
+require "openssl"
+require "base64"
 
 class EncryptionService
   def self.encrypt(data, key)
     key ||= SecureRandom.hex(16) # fallback if nil
-    cipher = OpenSSL::Cipher.new('AES-256-CBC')
+    cipher = OpenSSL::Cipher.new("AES-256-CBC")
     cipher.encrypt
     cipher.key = Digest::SHA256.digest(key)
     iv = cipher.random_iv
@@ -14,7 +14,7 @@ class EncryptionService
 
   def self.decrypt(encrypted_data, key)
     raw_data = Base64.strict_decode64(encrypted_data)
-    cipher = OpenSSL::Cipher.new('AES-256-CBC')
+    cipher = OpenSSL::Cipher.new("AES-256-CBC")
     cipher.decrypt
     cipher.key = Digest::SHA256.digest(key)
     cipher.iv = raw_data[0..15]

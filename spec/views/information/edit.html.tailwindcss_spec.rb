@@ -17,7 +17,6 @@ RSpec.describe "information/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", information_path(information), "post" do
-
       assert_select "input[name=?]", "information[title]"
 
       assert_select "textarea[name=?]", "information[main]"
