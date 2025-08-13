@@ -1,4 +1,4 @@
-require 'active_support/message_encryptor'
+require "active_support/message_encryptor"
 
 class Information < ApplicationRecord
   include PgSearch::Model
@@ -11,7 +11,7 @@ class Information < ApplicationRecord
   validates :main, presence: true, length: { minimum: 10 }
 
   pg_search_scope :search_by_title_and_user_id,
-                  against: [:title, :user_id],
+                  against: [ :title, :user_id ],
                   using: {
                     tsearch: { prefix: true, any_word: true }
                   }
@@ -34,7 +34,7 @@ class Information < ApplicationRecord
   private
 
   def generate_key
-    special_chars = ["!", "@", "#", "$", "%", "^", "&", "*"]
+    special_chars = [ "!", "@", "#", "$", "%", "^", "&", "*" ]
     self.key = SecureRandom.alphanumeric(2) + special_chars.sample + SecureRandom.alphanumeric(5)
   end
 

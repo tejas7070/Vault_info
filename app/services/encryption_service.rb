@@ -1,13 +1,13 @@
-require 'openssl'
-require 'base64'
+require "openssl"
+require "base64"
 
 class EncryptionService
-  ALGO = 'aes-256-gcm'
+  ALGO = "aes-256-gcm"
 
   def self.encrypt(plaintext, key)
     cipher = OpenSSL::Cipher.new(ALGO)
     cipher.encrypt
-    cipher.key = [key].pack("H*")
+    cipher.key = [ key ].pack("H*")
     iv = cipher.random_iv
     cipher.auth_data = ""
 
@@ -25,7 +25,7 @@ class EncryptionService
 
     cipher = OpenSSL::Cipher.new(ALGO)
     cipher.decrypt
-    cipher.key = [key].pack("H*")
+    cipher.key = [ key ].pack("H*")
     cipher.iv = iv
     cipher.auth_tag = tag
     cipher.auth_data = ""
@@ -35,4 +35,3 @@ class EncryptionService
     nil
   end
 end
-

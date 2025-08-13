@@ -12,7 +12,6 @@ class InformationController < ApplicationController
 
   # GET /information/1 or /information/1.json
   def show
-
   end
 
   def keys

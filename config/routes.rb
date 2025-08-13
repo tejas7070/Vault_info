@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   if Rails.env.development?
-    require 'letter_opener_web'
+    require "letter_opener_web"
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
